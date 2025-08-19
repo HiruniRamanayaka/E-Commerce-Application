@@ -5,18 +5,49 @@ import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin } from "react-icons/fa";
 
 function Contact() {
   const [showMap, setShowMap] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
 
   const handleShowMap = () => setShowMap(true);
 
-  const handleContact = (e) => {
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleContact = async (e) => {
     e.preventDefault();
-    alert("Thanks for reaching out!");
+
+    const payload = {
+      to: "hiruniramanayaka1@gmail.com", 
+      subject: `Message from ${formData.name} (${formData.email})`,
+      message: formData.message,
+    };
+
+    try {
+      const res = await fetch("http://localhost:5000/email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (res.ok) {
+        alert("Message sent successfully!");
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        alert("Failed to send message.");
+      }
+    } catch (err) {
+      console.error("Error sending message:", err);
+      alert("Something went wrong.");
+    }
   };
 
   return (
     <section className="bg-gray-50 py-16 px-6">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
-        
         {/* Left Section */}
         <div className="space-y-10">
           {/* Logo + Mission */}
@@ -75,18 +106,27 @@ function Contact() {
             <form className="space-y-4" onSubmit={handleContact}>
               <input
                 type="text"
+                name="name"
                 placeholder="Name"
+                value={formData.name}
+                onChange={handleChange}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-yellow-300"
                 required
               />
               <input
                 type="email"
+                name="email"
                 placeholder="Email"
+                value={formData.email}
+                onChange={handleChange}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-yellow-300"
                 required
               />
               <textarea
+                name="message"
                 placeholder="Message"
+                value={formData.message}
+                onChange={handleChange}
                 rows="4"
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-yellow-300"
                 required
