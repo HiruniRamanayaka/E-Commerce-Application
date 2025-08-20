@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 require("dotenv").config();
 
+const productRoutes = require('./routes/productRoutes');
 const emailRoutes = require('./routes/email');
 
 const app = express();
@@ -20,6 +21,7 @@ mongoose
         process.exit(1);
     })
 
+app.use('/api/products', productRoutes);
 app.use('/email', emailRoutes);
 
 // Start server

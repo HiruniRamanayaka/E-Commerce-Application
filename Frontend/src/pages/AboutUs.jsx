@@ -1,22 +1,12 @@
 import React from 'react';
 import { Coffee, Users, Clock, Heart, Star, Calendar, ChevronRight, MapPin } from 'lucide-react';
 import logo from "/logo.png"; 
+import HighlightedMenu from "../components/HighlightedMenu";
 
 const AboutUs = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-100">
-      {/* Header */}
-      <header className="bg-white/80 backdrop-blur-md shadow-lg">
-        <div className="container mx-auto px-6 pb-8 text-center">
-          <div className="flex items-center justify-center space-x-2">
-            <img src={logo} alt="CaféNova Logo" className="h-30 w-auto" />
-            <h1 className="text-3xl font-semibold text-amber-900">CaféNova</h1>
-          </div>
-          <p className="text-gray-600 text-lg">About Our Coffee Journey</p>
-        </div>
-      </header>
-
       {/* Main Content */}
       <main>
         {/* Hero Image */}
@@ -29,7 +19,7 @@ const AboutUs = () => {
           <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
             <div className="text-center text-white">
               <h2 className="text-5xl font-bold mb-4">Welcome to Our Story</h2>
-              <p className="text-xl">Where every cup tells a tale</p>
+              <p className="text-xl">Where every cup tells a tale...</p>
             </div>
           </div>
         </section>
@@ -103,7 +93,7 @@ const AboutUs = () => {
         </section>
 
         {/* Menu Section */}
-        
+        <HighlightedMenu />
         {/* News Section */}
 
         {/* Team Section */}

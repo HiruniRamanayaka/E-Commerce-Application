@@ -13,6 +13,19 @@ router.get("/", async (req, res) => {
     }
 });
 
+// Get top 6 products by ratings
+router.get("/top-rates", async (req, res) => {
+    try {
+        const products = await Product.find()
+            .sort({ "rating.rate": -1})  //sorted by high to low
+            .limit(6);
+        res.status(200).json(products);
+    } catch (err) {
+        console.error("Error fetching top rated products:", err.message);
+        res.status(500).json({error: "Server error"});
+    }
+});
+
 //get single products
 router.get("/:id", async (req, res) => {
     try {
