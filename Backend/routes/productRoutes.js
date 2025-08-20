@@ -31,8 +31,8 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
     console.log("Incoming POST:", req.body);
     try {
-        const {name, price, description, image} = req.body;
-        if(!name || !price || !description || !image ) {
+        const {name, price, description, ingredients, image} = req.body;
+        if(!name || !price || !description || !ingredients || !image ) {
             return res.status(400).json({error: "All fields are required"});
         }
         const product = new Product(req.body);
