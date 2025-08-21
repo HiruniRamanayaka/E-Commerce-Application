@@ -24,6 +24,14 @@ function Navbar() {
         >
             Home
         </NavLink>
+        <NavLink to="/coffees" 
+            className={({ isActive }) => `text-amber-900 hover:text-gray-900 transition border-b-2 ${
+                isActive ? "text-gray-900 border-gray-900" : "border-transparent"
+            }`
+            }
+        >
+            Our Coffees
+        </NavLink>
         <NavLink to="/about" 
             className={({ isActive }) => `text-amber-900 hover:text-gray-900 transition border-b-2 ${
                 isActive ? "text-gray-900 border-gray-900" : "border-transparent"
