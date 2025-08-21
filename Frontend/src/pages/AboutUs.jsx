@@ -1,7 +1,7 @@
 import React from 'react';
 import { Coffee, Users, Clock, Heart, Star, Calendar, ChevronRight, MapPin } from 'lucide-react';
 import logo from "/logo.png"; 
-import HighlightedMenu from "../components/HighlightedMenu";
+import Team from "../components/Team";
 
 const AboutUs = () => {
 
@@ -92,11 +92,10 @@ const AboutUs = () => {
           </div>
         </section>
 
-        {/* Menu Section */}
-        <HighlightedMenu />
         {/* News Section */}
 
         {/* Team Section */}
+        <Team />
 
         {/* Blog Section */}
         
