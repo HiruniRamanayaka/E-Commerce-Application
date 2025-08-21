@@ -13,7 +13,7 @@ function HighlightedMenu() {
     return (
         <>
         {/* Menu Section */}
-        <section className="py-20 bg-white/30">
+        <section className="py-20 bg-white/30 mx-15">
           <div className="container mx-auto px-6">
             <div className="text-center mb-12">
               <h2 className="text-4xl font-bold text-gray-800 mb-4">Our Menu Highlights</h2>
