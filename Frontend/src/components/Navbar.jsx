@@ -48,6 +48,22 @@ function Navbar() {
         >
             Contact
         </NavLink>
+        <NavLink to="/login" 
+            className={({ isActive }) => `text-amber-900 hover:text-gray-900 transition border-b-2 py-1 ${
+                isActive ? "text-gray-900 border-gray-900" : "border-transparent"
+            }`
+            }
+        >
+            Login
+        </NavLink>
+        <NavLink to="/signUp" 
+            className={({ isActive }) => `bg-yellow-600 text-white px-4 py-2 rounded-md hover:text-gray-900 transition border-b-2 ${
+                isActive ? "text-gray-900 border-gray-900" : "border-transparent"
+            }`
+            }
+        >
+            SignUp
+        </NavLink>
       </div>
       
     </nav>
