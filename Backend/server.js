@@ -6,6 +6,7 @@ require("dotenv").config();
 const productRoutes = require('./routes/productRoutes');
 const emailRoutes = require('./routes/email');
 const employeeRoutes = require('./routes/employeeRoutes');
+const authRoutes = require('./routes/auth')
 
 const app = express();
 const PORT = 5000;
@@ -25,6 +26,7 @@ mongoose
 app.use('/api/products', productRoutes);
 app.use('/email', emailRoutes);
 app.use('/api/employees', employeeRoutes);
+app.use('/api/auth', authRoutes);
 
 // Start server
 app.listen(PORT, () => {

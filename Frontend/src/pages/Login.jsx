@@ -19,7 +19,7 @@ function Login() {
       </div>
 
       {/* Login Card */}
-      <div className="relative z-10 bg-white/80 rounded-2xl shadow-2xl border border-yellow-100 p-8 w-full max-w-md">
+      <div className="relative z-10 bg-white/90 rounded-2xl shadow-2xl border border-yellow-100 p-8 w-full max-w-md">
         {/* Close Button */}
         <button
           onClick={() => navigate("/")}
