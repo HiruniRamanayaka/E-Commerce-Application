@@ -10,6 +10,16 @@ const registerValidator = [
     .isEmail().withMessage("Enter a valid email address")
     .normalizeEmail(),
 
+  body("countryCode")
+    .trim()
+    .notEmpty().withMessage("Country code is required")
+    .matches(/^\+\d{1,4}$/).withMessage("Enter a valid country code"),
+  
+  body("phone")
+    .trim()
+    .notEmpty().withMessage("Phone number is required")
+    .matches(/^\d{7,12}$/).withMessage("Enter a valid phone number"),
+
   body("password")
     .isLength({ min: 6 }).withMessage("Password must be at least 6 characters")
     .matches(/[A-Z]/).withMessage("Password must contain an uppercase letter")

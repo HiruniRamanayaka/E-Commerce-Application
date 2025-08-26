@@ -14,6 +14,8 @@ function SignUp() {
   const [formData, setFormData] = useState({
     userName: "",
     email: "",
+    countryCode: "+94",
+    phone: "",
     password: "",
     confirmPassword: "",
   });
@@ -40,6 +42,12 @@ function SignUp() {
       newErrors.email = "Enter a valid email address";
     }
 
+    if (!formData.phone) {
+      newErrors.phone = "Phone number is required";
+    } else if (!/^\d{7,12}$/.test(formData.phone)) {
+      newErrors.phone = "Enter a valid phone number";
+    }
+
     if (!formData.password) {
       newErrors.password = "Password is required";
     } else if (formData.password.length < 6) {
@@ -62,6 +70,8 @@ function SignUp() {
       const res = await axios.post("http://localhost:5000/api/auth/register", {
         userName: formData.userName,
         email: formData.email,
+        countryCode: formData.countryCode,
+        phone: formData.phone,
         password: formData.password,
       });
 
@@ -149,6 +159,41 @@ function SignUp() {
             <Mail className="absolute right-3 top-9 text-yellow-600 w-5 h-5" />
             {errors.email && (
               <p className="text-red-600 text-sm mt-1">{errors.email}</p>
+            )}
+          </div>
+
+          {/* Phone Number */}
+          <div>
+            <label className="block text-sm font-medium text-[#3e2c1d] mb-1">Phone Number</label>
+            <div className="flex space-x-2">
+              {/* Country Code Dropdown */}
+              <select
+                name="countryCode"
+                value={formData.countryCode}
+                onChange={handleChange}
+                className="w-1/3 px-3 py-2 rounded-lg border border-[#d4a373] bg-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
+              >
+                <option value="+94">LK +94</option>
+                <option value="+91">IN +91</option>
+                <option value="+1">US +1</option>
+                <option value="+44">GB +44</option>
+                <option value="+61">AU +61</option>
+                {/* Add more as needed */}
+              </select>
+
+              {/* Phone Number Input */}
+              <input
+                type="tel"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                placeholder="712345678"
+                autoComplete="tel"
+                className="w-full px-4 py-2 rounded-lg border border-[#d4a373] focus:outline-none focus:ring-2 focus:ring-yellow-500"
+              />
+            </div>
+            {errors.phone && (
+              <p className="text-red-600 text-sm mt-1">{errors.phone}</p>
             )}
           </div>
 

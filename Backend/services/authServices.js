@@ -2,19 +2,22 @@ const User = require('../models/user');
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const registerUser = async ({ userName, email, password }) => {
+const registerUser = async ({ userName, email, password, countryCode, phone }) => {
     const existing = await User.findOne({ email });
     if(existing){
        throw new Error("Email already in use");
     }
 
-    const user = new User({ userName, email, password });
+    const fullPhone = `${countryCode}${phone}`;
+
+    const user = new User({ userName, email, password, phone: fullPhone });
     await user.save();
 
     return {
         id: user._id, 
         userName: user.userName, 
-        email: user.email 
+        email: user.email,
+        phone: user.phone, 
     };
 };
 
@@ -42,7 +45,8 @@ const loginUser = async ({ email, password }) => {
         user: {
             id: existingUser._id,
             userName: existingUser.userName,
-            email: existingUser.email
+            email: existingUser.email,
+            phone: existingUser.phone
         }
     };
 };
