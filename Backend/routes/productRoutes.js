@@ -29,7 +29,7 @@ router.get("/top-rates", async (req, res) => {
 });
 
 //get single products
-router.get("/:id", async (req, res) => {
+router.get("/:id", verifyToken, authorizeRoles("customer", "admin"), async (req, res) => {
     try {
         const product = await Product.findById(req.params.id);
         if(!product){
@@ -39,6 +39,7 @@ router.get("/:id", async (req, res) => {
         }
     } catch (err) {
         console.error(err.message);
+        res.status(500).json({ error: "Server error" });
     }
 });
 
@@ -60,7 +61,7 @@ router.post("/", verifyToken, authorizeRoles("admin"), async (req, res) => {
 });
 
 //update a product
-router.put("/:id", verifyToken, authorizeRoles("Admin"), async (req, res) => {
+router.put("/:id", verifyToken, authorizeRoles("admin"), async (req, res) => {
     try {
         const updatedProduct = await Product.findByIdAndUpdate(
             req.params.id,
@@ -77,6 +78,20 @@ router.put("/:id", verifyToken, authorizeRoles("Admin"), async (req, res) => {
         console.error("Error updating product: ", err);
         res.status(400).json({ error: err.message });
     }
+});
+
+// delete a product (admin only)
+router.delete("/:id", verifyToken, authorizeRoles("admin"), async (req, res) => {
+  try {
+    const deletedProduct = await Product.findByIdAndDelete(req.params.id);
+    if (!deletedProduct) {
+      return res.status(404).json({ error: "Product is not found" });
+    }
+    res.status(200).json({ message: "Product deleted successfully" });
+  } catch (err) {
+    console.error("Error deleting product:", err.message);
+    res.status(500).json({ error: "Server error" });
+  }
 });
 
 module.exports = router;

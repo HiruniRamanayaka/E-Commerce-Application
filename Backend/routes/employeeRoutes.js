@@ -5,14 +5,41 @@ const { authorizeRoles } = require("../middleware/authorizeRoles");
 
 const router = express.Router();
 
-//get all employees
+//get employees for public view
 router.get("/", async (req, res) => {
+  try {
+    const employees = await Employee.find({ public: true }).select("name position experience speciality image");
+    res.status(200).json(employees);
+  } catch (err) {
+    console.error("Error fetching public employees:", err.message);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+
+// get all the employees for admin
+router.get("/all", verifyToken, authorizeRoles("admin"), async (req, res) => {
     try {
         const employees = await Employee.find();
         res.status(200).json(employees);
     } catch (err) {
         console.error(err.message);
+        res.status(500).json({ error: "Server error" });
     }
+});
+
+//get an employee
+router.get("/:id", verifyToken, authorizeRoles("admin"), async (req, res) => {
+  try {
+    const employee = await Employee.findById(req.params.id);
+    if (!employee) {
+      return res.status(404).json({ error: "Employee not found" });
+    }
+    res.status(200).json(employee);
+  } catch (err) {
+    console.error("Error fetching employee:", err.message);
+    res.status(500).json({ error: "Server error" });
+  }
 });
 
 //add an employee (admin only)
@@ -50,6 +77,20 @@ router.put("/:id", verifyToken, authorizeRoles("admin"), async (req, res) => {
         console.error("Error updating employee: ", err);
         res.status(400).json({ error: err.message });
     }
+});
+
+// delete an employee (admin only)
+router.delete("/:id", verifyToken, authorizeRoles("admin"), async (req, res) => {
+  try {
+    const deleted = await Employee.findByIdAndDelete(req.params.id);
+    if (!deleted) {
+      return res.status(404).json({ error: "Employee not found" });
+    }
+    res.status(200).json({ message: "Employee deleted successfully" });
+  } catch (err) {
+    console.error("Error deleting employee:", err.message);
+    res.status(500).json({ error: "Server error" });
+  }
 });
 
 module.exports = router;

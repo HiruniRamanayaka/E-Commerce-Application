@@ -23,6 +23,40 @@ const employeeSchema = new mongoose.Schema(
             type: String,
             required: true
         },
+
+        // Admin-only fields
+        email: { 
+            type: String, 
+            trim: true 
+        },
+        phone: { 
+            type: String, 
+            trim: true 
+        },
+        address: { 
+            type: String, 
+            trim: true },
+
+        dateOfBirth: { 
+            type: Date 
+        },
+        nationalID: { 
+            type: String, 
+            trim: true 
+        },
+        salary: { 
+            type: Number 
+        },
+        employmentStatus: { 
+            type: String, 
+            enum: ["active", "on leave", "terminated"], 
+            default: "active" 
+        },
+        notes: { 
+            type: String, 
+            trim: true 
+        },
+
     },
     {timestamps: true}
 );
