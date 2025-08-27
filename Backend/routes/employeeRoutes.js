@@ -1,5 +1,7 @@
 const express = require("express");
 const Employee = require("../models/employee")
+const { verifyToken } = require("../middleware/authMiddleware");
+const { authorizeRoles } = require("../middleware/authorizeRoles");
 
 const router = express.Router();
 
@@ -13,8 +15,8 @@ router.get("/", async (req, res) => {
     }
 });
 
-//add an employee
-router.post("/", async (req, res) => {
+//add an employee (admin only)
+router.post("/", verifyToken, authorizeRoles("admin"), async (req, res) => {
     console.log("Incoming POST:", req.body);
     try {
         const {name, position, experience, speciality, image} = req.body;
@@ -30,8 +32,8 @@ router.post("/", async (req, res) => {
     }
 });
 
-//update an employee
-router.put("/:id", async (req, res) => {
+//update an employee (admin only)
+router.put("/:id", verifyToken, authorizeRoles("admin"), async (req, res) => {
     try {
         const updatedEmployee = await Employee.findByIdAndUpdate(
             req.params.id,

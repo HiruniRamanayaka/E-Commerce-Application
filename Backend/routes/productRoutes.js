@@ -1,5 +1,7 @@
 const express = require("express");
-const Product = require("../models/product")
+const Product = require("../models/product");
+const { verifyToken } = require("../middleware/authMiddleware");
+const { authorizeRoles } = require("../middleware/authorizeRoles");
 
 const router = express.Router();
 
@@ -41,7 +43,7 @@ router.get("/:id", async (req, res) => {
 });
 
 //add a product
-router.post("/", async (req, res) => {
+router.post("/", verifyToken, authorizeRoles("admin"), async (req, res) => {
     console.log("Incoming POST:", req.body);
     try {
         const {name, price, description, ingredients, image} = req.body;
@@ -58,7 +60,7 @@ router.post("/", async (req, res) => {
 });
 
 //update a product
-router.put("/:id", async (req, res) => {
+router.put("/:id", verifyToken, authorizeRoles("Admin"), async (req, res) => {
     try {
         const updatedProduct = await Product.findByIdAndUpdate(
             req.params.id,

@@ -34,7 +34,11 @@ const loginUser = async ({ email, password }) => {
 
     // Generate JWT
     const token = jwt.sign(
-        { userId: existingUser._id, email: existingUser.email },
+        { 
+            userId: existingUser._id, 
+            email: existingUser.email,
+            role: existingUser.role, 
+        },
         process.env.JWT_SECRET,
         { expiresIn: "1h" }
     );
@@ -46,7 +50,8 @@ const loginUser = async ({ email, password }) => {
             id: existingUser._id,
             userName: existingUser.userName,
             email: existingUser.email,
-            phone: existingUser.phone
+            phone: existingUser.phone,
+            role: existingUser.role,
         }
     };
 };
