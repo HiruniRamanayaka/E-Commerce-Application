@@ -43,12 +43,6 @@ function Navbar() {
             <NavLink to="/coffees" className={({ isActive }) => navLinkStyle(isActive)}>
               Shop
             </NavLink>
-            <NavLink to="/about" className={({ isActive }) => navLinkStyle(isActive)}>
-              About
-            </NavLink>
-            <NavLink to="/contact" className={({ isActive }) => navLinkStyle(isActive)}>
-              Contact
-            </NavLink>
           </>
         ) : (
           <>
