@@ -4,9 +4,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { X, Eye, EyeOff } from "lucide-react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "../../features/auth/authSlice";
 
 function Login() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  
   const [showPassword, setShowPassword] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -50,9 +54,17 @@ function Login() {
 
       const { token, user } = res.data;
 
-      // Save token
+      // Save to Redux
+      dispatch(loginSuccess({
+        token,
+        role: user.role,
+        userName: user.userName,
+      }));
+
+      // Optional: persist to localStorage if needed
       localStorage.setItem("token", token);
       localStorage.setItem("role", user.role);
+      localStorage.setItem("userName", user.userName);
 
       toast.success("Login successful!", {
         position: "top-center",
