@@ -48,8 +48,11 @@ function Login() {
         password: formData.password,
       });
 
+      const { token, user } = res.data;
+
       // Save token
-      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("token", token);
+      localStorage.setItem("role", user.role);
 
       toast.success("Login successful!", {
         position: "top-center",
@@ -58,7 +61,14 @@ function Login() {
         theme: "colored",
       });
 
-      setTimeout(() => navigate("/contact"), 1500);
+      setTimeout(() => {
+        if (user.role === "customer") {
+          navigate("/customer/dashboard"); // Customer dashboard
+        } else {
+          toast.error("This login is meant for customers. If you're an admin, please use the admin portal.");
+        }
+      }, 1500);
+
     } catch (err) {
       console.error(err);
       toast.error(err.response?.data?.error || "Login failed", {

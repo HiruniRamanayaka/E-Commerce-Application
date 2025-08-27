@@ -1,7 +1,7 @@
 import React from 'react';
 import { Coffee, Users, Clock, Heart, Star, Calendar, ChevronRight, MapPin } from 'lucide-react';
 import logo from "/logo.png"; 
-import Team from "../components/Team";
+import Team from "../../components/public/Team";
 
 const AboutUs = () => {
 

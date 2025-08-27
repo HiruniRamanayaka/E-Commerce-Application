@@ -1,7 +1,7 @@
 import React from "react";
-import heroImage from "../assets/image1.jpg"
-import mainImage from "../assets/image2.jpg"
-import HighlightedMenu from "../components/HighlightedMenu";
+import heroImage from "../../assets/image1.jpg"
+import mainImage from "../../assets/image2.jpg"
+import HighlightedMenu from "../../components/public/HighlightedMenu";
 
 function Home() {
     return (
