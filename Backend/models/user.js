@@ -35,4 +35,15 @@ userSchema.pre("save", async function (next) {
     next();
 });
 
+// Hash password when using findOneAndUpdate
+userSchema.pre("findOneAndUpdate", async function (next) {
+  const update = this.getUpdate();
+  if (!update) return next();
+  if (update.password) {
+    const hashed = await bcrypt.hash(update.password, 12);
+    this.setUpdate({ ...update, password: hashed });
+  }
+  next();
+});
+
 module.exports = mongoose.model("User", userSchema);
