@@ -74,7 +74,7 @@ router.put("/:id", verifyToken, authorizeRoles("admin"), async (req, res) => {
 
         res.status(200).json(updatedEmployee);
     } catch (err) {
-        console.error("Error updating employee: ", err.message);
+        console.error("Error updating employee: ", err);
         res.status(400).json({ error: err.message });
     }
 });
