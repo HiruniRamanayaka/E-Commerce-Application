@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import api from "../../api";
 import { Coffee, Snowflake, Star, ChevronRight, Search } from "lucide-react";
 
 function Coffees() {
@@ -8,8 +9,8 @@ function Coffees() {
   const [filter, setFilter] = useState("all");
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/products")
+    api
+      .get("/products")
       .then((res) => setProducts(res.data))
       .catch((err) => console.error("Error fetching products: ", err));
   }, []);

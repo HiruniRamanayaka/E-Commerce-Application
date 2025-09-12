@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import api from "../../api";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { X, Eye, EyeOff, Mail } from "lucide-react";
@@ -67,7 +68,7 @@ function SignUp() {
     if (!validateForm()) return;        // Not submit if invalid inputs
     
   try {
-      const res = await axios.post("http://localhost:5000/api/auth/register", {
+      const res = await api.post("/auth/register", {
         userName: formData.userName,
         email: formData.email,
         countryCode: formData.countryCode,

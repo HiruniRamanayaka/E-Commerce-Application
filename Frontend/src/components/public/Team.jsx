@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import api from "../../api";
 
 function Team() {
   const [employees, setEmployees] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/employees")
+    api
+      .get('/employees')
       .then((res) => setEmployees(res.data))
       .catch((err) => console.error("Error fetching employees: ", err));
   }, []);
