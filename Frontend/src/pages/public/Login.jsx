@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import api from "../../api";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { X, Eye, EyeOff } from "lucide-react";
@@ -47,24 +48,18 @@ function Login() {
     if (!validateForm()) return;
 
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/login", {
+      const res = await api.post("/auth/login", {
         email: formData.email,
         password: formData.password,
       });
 
       const { token, user } = res.data;
 
-      // Save to Redux
+      // Save to Redux 
       dispatch(loginSuccess({
         token,
-        role: user.role,
-        userName: user.userName,
+        user 
       }));
-
-      // Optional: persist to localStorage if needed
-      localStorage.setItem("token", token);
-      localStorage.setItem("role", user.role);
-      localStorage.setItem("userName", user.userName);
 
       toast.success("Login successful!", {
         position: "top-center",

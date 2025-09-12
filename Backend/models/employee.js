@@ -24,6 +24,11 @@ const employeeSchema = new mongoose.Schema(
             required: true
         },
 
+        public: { 
+            type: Boolean, 
+            default: true 
+        },
+
         // Admin-only fields
         email: { 
             type: String, 
@@ -45,7 +50,8 @@ const employeeSchema = new mongoose.Schema(
             trim: true 
         },
         salary: { 
-            type: Number 
+            type: Number,
+            min: 0 
         },
         employmentStatus: { 
             type: String, 
