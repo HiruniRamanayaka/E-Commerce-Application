@@ -3,17 +3,14 @@ import Home from './pages/public/Home'
 import Coffees from './pages/public/Coffees'
 import AboutUs from './pages/public/AboutUs'
 import Contact from './pages/public/Contact'
-import Navbar from './components/Navbar'
-import Footer from './components/Footer'
+import Navbar from './components/public/Navbar'
+import Footer from './components/public/Footer'
 import Login from './pages/public/Login'
 import SignUp from './pages/public/SignUp'
 import Dashboard from "./pages/customer/Dashboard";
-import ProductDetail from "./pages/customer/Products";
-import PrivateRoute from "./utils/PrivateRoutes";
 
 function App() {
   const location = useLocation();
-  // normalize path check: hide navbar on login & signup
   const hideNavbarFooter = location.pathname === "/login" || location.pathname === "/signUp";
 
   return (
@@ -26,25 +23,8 @@ function App() {
         <Route path="/about" element={<AboutUs />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
-
-        {/* Protected customer routes */}
-        <Route
-          path="/customer/dashboard"
-          element={
-            <PrivateRoute roles={["customer", "admin"]}>
-              <Dashboard />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/product/:id"
-          element={
-            <PrivateRoute roles={["customer", "admin"]}>
-              <ProductDetail />
-            </PrivateRoute>
-          }
-        />
+        <Route path="/signUp" element={<SignUp />} />
+        <Route path="/customer/dashboard" element={<Dashboard />} />
       </Routes>
 
       {!hideNavbarFooter && <Footer />}
