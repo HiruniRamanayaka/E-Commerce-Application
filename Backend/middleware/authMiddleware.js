@@ -9,6 +9,11 @@ const verifyToken = (req, res, next) => {
 
   const token = authHeader.split(" ")[1];
 
+  if (!process.env.JWT_SECRET) {
+    console.error("JWT_SECRET is not set in environment");
+    return res.status(500).json({ error: "Server configuration error." });
+  }
+
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded; // Attach user info to request
