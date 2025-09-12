@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import api from "../../api";
 import { ChevronRight } from 'lucide-react';
 
 function HighlightedMenu() {
     const [menuItems, setMenuItems] = useState([]);
 
     useEffect(() => {
-        api.get('/products/top-rates')
+        axios.get("http://localhost:5000/api/products/top-rates")
             .then(res => setMenuItems(res.data))
             .catch(err => console.error("Error fetching products: ", err));
     }, []);

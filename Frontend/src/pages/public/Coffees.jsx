@@ -1,38 +1,33 @@
 import React, { useState, useEffect } from "react";
-import api from "../../api";
 import axios from "axios";
 import { Coffee, Snowflake, Star, ChevronRight, Search } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 function Coffees() {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
 
-  const navigate = useNavigate();
-  const { token } = useSelector((state) => state.auth);
-
   useEffect(() => {
-    api
-      .get("/products")
+    axios
+      .get("http://localhost:5000/api/products")
       .then((res) => setProducts(res.data))
       .catch((err) => console.error("Error fetching products: ", err));
   }, []);
 
   const filteredProducts = products.filter((product) => {
     const matchesName = product.name.toLowerCase().includes(search.toLowerCase());
-    const matchesCategory =
-      filter === "all" ||
-      (filter === "hot" && product.category?.hot) ||
-      (filter === "cold" && product.category?.cold);
+    const matchesCategory = 
+        filter === "all" ||
+        (filter === "hot" && product.category?.hot) ||
+        (filter === "cold" && product.category?.cold);
     return matchesName && matchesCategory;
-  });
+  })
 
   return (
     <section className="py-10 bg-[#fdf8f3] text-[#3e2c1d]">
       <div className="container mx-auto px-6">
-        {/* Header */}
+
+        {/* header */}
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold mb-4">Our Coffee Selection</h2>
           <div className="w-24 h-1 bg-yellow-600 mx-auto rounded-full"></div>
@@ -54,6 +49,7 @@ function Coffees() {
             <Search className="absolute right-3 top-2.5 text-yellow-600 w-5 h-5" />
           </div>
 
+          {/* Buttons */}
           <div className="flex gap-3">
             {["all", "hot", "cold"].map((type) => (
               <button
@@ -109,14 +105,7 @@ function Coffees() {
                 </div>
 
                 <div className="mt-auto pt-4 flex justify-end">
-                  <button
-                    onClick={() =>
-                      token
-                        ? navigate(`/product/${product._id}`)
-                        : navigate("/login")
-                    }
-                    className="text-amber-600 hover:text-amber-700 font-medium text-sm flex items-center"
-                  >
+                  <button className="text-amber-600 hover:text-amber-700 font-medium text-sm flex items-center">
                     Order Now <ChevronRight className="h-4 w-4 ml-1" />
                   </button>
                 </div>
@@ -132,6 +121,7 @@ function Coffees() {
           </div>
         )}
       </div>
+
     </section>
   );
 }
