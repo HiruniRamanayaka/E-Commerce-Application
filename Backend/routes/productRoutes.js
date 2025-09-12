@@ -8,10 +8,11 @@ const router = express.Router();
 //get all products
 router.get("/", async (req, res) => {
     try {
-        const products = await Product.find();
+        const products = await Product.find({ isActive: true}).select("name description image category rating");
         res.status(200).json(products);
     } catch (err) {
         console.error(err.message);
+        res.status(500).json({ error: "Server error" });
     }
 });
 

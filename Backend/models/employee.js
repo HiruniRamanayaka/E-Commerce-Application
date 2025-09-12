@@ -24,6 +24,11 @@ const employeeSchema = new mongoose.Schema(
             required: true
         },
 
+        public: { 
+            type: Boolean, 
+            default: true 
+        },
+
         // Admin-only fields
         email: { 
             type: String, 

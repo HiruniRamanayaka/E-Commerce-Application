@@ -18,6 +18,7 @@ const registerUser = async ({ userName, email, password, countryCode, phone }) =
         userName: user.userName, 
         email: user.email,
         phone: user.phone, 
+        role: user.role,
     };
 };
 
@@ -30,6 +31,10 @@ const loginUser = async ({ email, password }) => {
     const isMatch = await bcrypt.compare(password, existingUser.password);
     if(!isMatch){
         throw new Error("Invalid email or password");
+    }
+
+     if (!process.env.JWT_SECRET) {
+        throw new Error("Server configuration error");
     }
 
     // Generate JWT
