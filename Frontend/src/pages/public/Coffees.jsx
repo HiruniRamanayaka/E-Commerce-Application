@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import api from "../../api";
 import { Coffee, Snowflake, Star, ChevronRight, Search } from "lucide-react";
 
@@ -7,6 +9,9 @@ function Coffees() {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
+  const { token } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  const isAuthenticated = !!token;
 
   useEffect(() => {
     api
@@ -73,6 +78,13 @@ function Coffees() {
           {filteredProducts.map((product) => (
             <div
               key={product._id}
+              onClick={() => {
+                if (isAuthenticated) {
+                  navigate(`/product/${product._id}`);
+                } else {
+                  navigate("/login");
+                }
+              }}
               className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col"
             >
               <img
@@ -106,8 +118,20 @@ function Coffees() {
                 </div>
 
                 <div className="mt-auto pt-4 flex justify-end">
-                  <button className="text-amber-600 hover:text-amber-700 font-medium text-sm flex items-center">
-                    Order Now <ChevronRight className="h-4 w-4 ml-1" />
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation(); // Prevent card click from triggering
+                      if (isAuthenticated) {
+                        // Replace with actual cart logic
+                        console.log("Add to cart:", product.name);
+                        // dispatch(addToCart(product))
+                      } else {
+                        navigate("/login");
+                      }
+                    }}
+                    className="text-amber-600 hover:text-amber-700 font-medium text-sm flex items-center"
+                  >
+                    Add to Cart <ChevronRight className="h-4 w-4 ml-1" />
                   </button>
                 </div>
               </div>
