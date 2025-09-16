@@ -7,6 +7,8 @@ const productRoutes = require('./routes/productRoutes');
 const emailRoutes = require('./routes/email');
 const employeeRoutes = require('./routes/employeeRoutes');
 const authRoutes = require('./routes/auth')
+const cartRoutes = require("./routes/cartRoutes");
+const orderRoutes = require("./routes/orderRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -27,6 +29,8 @@ app.use('/api/products', productRoutes);
 app.use('/email', emailRoutes);
 app.use('/api/employees', employeeRoutes);
 app.use('/api/auth', authRoutes);
+app.use("/api/cart", cartRoutes);
+app.use("/api/orders", orderRoutes);
 
 // Start server
 app.listen(PORT, () => {
