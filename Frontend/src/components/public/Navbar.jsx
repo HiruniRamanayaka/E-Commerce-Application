@@ -29,7 +29,7 @@ function Navbar() {
     "block w-full text-left px-4 py-2 text-sm text-amber-900 hover:bg-yellow-100 transition";
 
   return (
-    <nav className="bg-light px-10 py-2 shadow-sm flex justify-between items-center">
+    <nav className="bg-white px-10 py-2 shadow-sm flex justify-between items-center shadow-sm border-b border-gray-300 sticky top-0 z-50">
       {/* Brand */}
       <NavLink to="/" className="flex items-center space-x-2">
         <img src={logo} alt="CaféNova Logo" className="h-15 w-auto" />
