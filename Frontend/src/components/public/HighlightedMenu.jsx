@@ -5,6 +5,8 @@ import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import api from "../../api";
 import { ChevronRight } from 'lucide-react';
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../features/cart/cartSlice";
 
 function HighlightedMenu() {
     const [menuItems, setMenuItems] = useState([]);
@@ -12,6 +14,7 @@ function HighlightedMenu() {
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
     const isAuthenticated = !!token;
+    const dispatch = useDispatch();
 
     useEffect(() => {
       setLoading(true);
@@ -31,9 +34,18 @@ function HighlightedMenu() {
     }
 
     const handleAddToCart = (item) => {
-      // Replace with actual cart logic
-      console.log("Adding to cart:", item.name);
-      // dispatch(addToCart(item))
+      const smallestSize = item.sizeOptions?.length > 0
+        ? item.sizeOptions.reduce((min, opt) =>
+            Number(opt.price) < Number(min.price) ? opt : min,
+            item.sizeOptions[0]
+          )
+        : null;
+
+      dispatch(addToCart({
+        product: item,
+        quantity: 1,
+        selectedSize: smallestSize
+      }));
     };
 
     return (
@@ -59,7 +71,11 @@ function HighlightedMenu() {
                     <div className="p-6">
                         <div className="flex justify-between items-start mb-3">
                             <h3 className="font-semibold text-lg text-gray-800">{item.name}</h3>
-                            <span className="text-amber-600 font-bold text-lg">LKR {item.price}</span>
+                            <span className="text-amber-600 font-bold text-lg">LKR {" "}
+                              {item.sizeOptions?.length > 0
+                                ? Math.min(...item.sizeOptions.map((opt) => opt.price))
+                                : item.price || "N/A"}
+                            </span>
                         </div>
                         <p className="text-gray-600 text-sm leading-relaxed">{item.description}</p>
                         <div className="mt-2 text-sm text-yellow-600">⭐ {item.rating?.rate?.toFixed(1)} / 5</div>

@@ -10,6 +10,7 @@ import SignUp from './pages/public/SignUp'
 import Dashboard from "./pages/customer/Dashboard";
 import ProductDetail from "./pages/customer/Products";
 import PrivateRoute from "./utils/PrivateRoutes";
+import Cart from "./pages/customer/Cart.jsx";
 
 function App() {
   const location = useLocation();
@@ -32,7 +33,7 @@ function App() {
         <Route
           path="/customer/dashboard"
           element={
-            <PrivateRoute roles={["customer", "admin"]}>
+            <PrivateRoute roles={["customer"]}>
               <Dashboard />
             </PrivateRoute>
           }
@@ -40,8 +41,16 @@ function App() {
         <Route
           path="/product/:id"
           element={
-            <PrivateRoute roles={["customer", "admin"]}>
+            <PrivateRoute roles={["customer"]}>
               <ProductDetail />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/customer/cart"
+          element={
+            <PrivateRoute roles={["customer"]}>
+              <Cart />
             </PrivateRoute>
           }
         />

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../features/cart/cartSlice";
 import api from "../../api";
 import { Coffee, Snowflake, Star, ChevronRight, Search } from "lucide-react";
 
@@ -12,11 +14,15 @@ function Coffees() {
   const { token } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const isAuthenticated = !!token;
+  const dispatch = useDispatch();
 
   useEffect(() => {
     api
       .get("/products")
-      .then((res) => setProducts(res.data))
+      .then((res) => {
+      // console.log("Products from backend:", res.data); 
+      setProducts(res.data);
+    })
       .catch((err) => console.error("Error fetching products: ", err));
   }, []);
 
@@ -97,7 +103,18 @@ function Coffees() {
                 <p className="text-sm text-[#5a3e2b] mb-2">{product.description}</p>
 
                 <div className="flex items-center justify-between mt-2">
-                  <span className="text-lg font-bold text-yellow-700">LKR {product.price}</span>
+                  <span className="text-lg font-bold text-yellow-700">
+                    LKR{" "}
+                    {(() => {
+                      const sizePrices = product.sizeOptions
+                        ?.map(opt => Number(opt.price))
+                        .filter(p => !isNaN(p));
+
+                      if (sizePrices?.length > 0) return Math.min(...sizePrices);
+                      if (!isNaN(Number(product.price))) return Number(product.price);
+                      return "Not Available";
+                    })()}
+                  </span>
                   <div className="flex items-center gap-2 text-yellow-600 text-sm">
                     <Star className="w-4 h-4" />
                     {product.rating?.rate?.toFixed(1)} / 5
@@ -120,14 +137,25 @@ function Coffees() {
                 <div className="mt-auto pt-4 flex justify-end">
                   <button
                     onClick={(e) => {
-                      e.stopPropagation(); // Prevent card click from triggering
-                      if (isAuthenticated) {
-                        // Replace with actual cart logic
-                        console.log("Add to cart:", product.name);
-                        // dispatch(addToCart(product))
-                      } else {
+                      e.stopPropagation();
+
+                      if (!isAuthenticated) {
                         navigate("/login");
+                        return;
                       }
+
+                      const smallestSize = product.sizeOptions?.length > 0
+                        ? product.sizeOptions.reduce((min, opt) =>
+                            Number(opt.price) < Number(min.price) ? opt : min,
+                            product.sizeOptions[0]
+                          )
+                        : null;
+
+                      dispatch(addToCart({
+                        product,
+                        quantity: 1,
+                        selectedSize: smallestSize
+                      }));
                     }}
                     className="text-amber-600 hover:text-amber-700 font-medium text-sm flex items-center"
                   >

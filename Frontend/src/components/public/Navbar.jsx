@@ -3,7 +3,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../features/auth/authSlice";
 import logo from "/logo.png";
-import { ShoppingCart, User } from "lucide-react";
+import { User } from "lucide-react";
+import CartIcon from "./CartIcon";
 
 function Navbar() {
   const dispatch = useDispatch();
@@ -11,6 +12,7 @@ function Navbar() {
   const { token, user } = useSelector((state) => state.auth);
   const role = user?.role;
   const userName = user?.userName;  
+  const { items } = useSelector((state) => state.cart);
   const [showDropdown, setShowDropdown] = useState(false);
 
   const handleLogout = () => {
@@ -85,9 +87,7 @@ function Navbar() {
         {/* Customer Links */}
         {token && role === "customer" && (
           <>
-            <NavLink to="/customer/cart" className="text-amber-900 hover:text-gray-900">
-              <ShoppingCart className="w-5 h-5" />
-            </NavLink>
+            <CartIcon />
 
             {/* Profile Dropdown */}
             <div className="relative">
