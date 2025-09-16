@@ -16,10 +16,11 @@ const orderSchema = new mongoose.Schema(
     totalPrice: { type: Number, required: true },
     status: {
       type: String,
-      enum: ["pending", "paid", "shipped", "completed", "cancelled"],
+      enum: ["pending", "paid", "ready", "completed", "cancelled"],
       default: "pending",
     },
-    shippingAddress: { type: String },
+    phoneNumber: { type: String, required: true },
+    pickupTime: { type: String },
     paymentMethod: { type: String, enum: ["cod", "card"], default: "cod" },
   },
   { timestamps: true }
