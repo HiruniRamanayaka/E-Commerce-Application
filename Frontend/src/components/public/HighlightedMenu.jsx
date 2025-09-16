@@ -1,22 +1,48 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import api from "../../api";
 import { ChevronRight } from 'lucide-react';
 
 function HighlightedMenu() {
     const [menuItems, setMenuItems] = useState([]);
+    const { token } = useSelector((state) => state.auth);
+    const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
+    const isAuthenticated = !!token;
 
     useEffect(() => {
-        api.get('/products/top-rates')
-            .then(res => setMenuItems(res.data))
-            .catch(err => console.error("Error fetching products: ", err));
+      setLoading(true);
+      api.get('/products/top-rates')
+          .then(res => {
+            setMenuItems(res.data);
+            setLoading(false);
+          })
+          .catch((err) => {
+            console.error("Error fetching products:", err);
+            setLoading(false);
+          });
     }, []);
+
+    if (loading) {
+      return <div className="p-10 text-center text-gray-600">Loading coffee details...</div>;
+    }
+
+    const handleAddToCart = (item) => {
+      // Replace with actual cart logic
+      console.log("Adding to cart:", item.name);
+      // dispatch(addToCart(item))
+    };
+
     return (
         <>
         {/* Menu Section */}
         <section className="py-20 bg-white/30 mx-15">
           <div className="container mx-auto px-6">
             <div className="text-center mb-12">
+              {/* <h2>{userToken}</h2> */}
               <h2 className="text-4xl font-bold text-gray-800 mb-4">Our Menu Highlights</h2>
               <div className="w-24 h-1 bg-amber-600 mx-auto rounded-full"></div>
               <p className="text-gray-600 mt-4 max-w-2xl mx-auto">Discover our carefully curated selection of premium coffees and artisan pastries</p>
@@ -38,9 +64,21 @@ function HighlightedMenu() {
                         <p className="text-gray-600 text-sm leading-relaxed">{item.description}</p>
                         <div className="mt-2 text-sm text-yellow-600">⭐ {item.rating?.rate?.toFixed(1)} / 5</div>
                         <div className="mt-4 flex justify-end">
-                            <button className="text-amber-600 hover:text-amber-700 font-medium text-sm flex items-center">
+                            {isAuthenticated ? (
+                              <button
+                                onClick={() => handleAddToCart(item)}
+                                className="text-amber-600 hover:text-amber-700 font-medium text-sm flex items-center"
+                              >
+                                Add to Cart <ChevronRight className="h-4 w-4 ml-1" />
+                              </button>
+                            ) : (
+                              <button
+                                onClick={() => navigate("/login")}
+                                className="text-amber-600 hover:text-amber-700 font-medium text-sm flex items-center"
+                              >
                                 Order Now <ChevronRight className="h-4 w-4 ml-1" />
-                            </button>
+                              </button>
+                            )}
                         </div>
                     </div>
                 </div>
