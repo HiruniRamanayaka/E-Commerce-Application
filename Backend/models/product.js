@@ -18,7 +18,7 @@ const productSchema = new mongoose.Schema(
     image: { type: String, required: true },
 
     // base price (for items without size options)
-    price: { type: Number, required: true, min: 0 },
+    price: { type: Number, min: 0 },
 
     category: {
       hot: { type: Boolean, default: false },
