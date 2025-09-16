@@ -8,7 +8,9 @@ import { ShoppingCart, User } from "lucide-react";
 function Navbar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { token, role, userName } = useSelector((state) => state.auth);
+  const { token, user } = useSelector((state) => state.auth);
+  const role = user?.role;
+  const userName = user?.userName;  
   const [showDropdown, setShowDropdown] = useState(false);
 
   const handleLogout = () => {
