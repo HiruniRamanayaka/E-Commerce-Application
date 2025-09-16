@@ -43,6 +43,11 @@ export const decreaseQuantity = createAsyncThunk(
   }
 );
 
+export const clearCart = createAsyncThunk("cart/clearCart", async () => {
+  const res = await api.delete("/cart/clear");
+  return res.data;
+});
+
 const cartSlice = createSlice({
   name: "cart",
   initialState: { items: [], status: "idle", error: null },
@@ -72,6 +77,9 @@ const cartSlice = createSlice({
       })
       .addCase(decreaseQuantity.fulfilled, (state, action) => {
         state.items = action.payload.items || [];
+      })
+      .addCase(clearCart.fulfilled, (state) => {
+        state.items = [];
       })
         },
       });
