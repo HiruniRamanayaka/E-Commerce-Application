@@ -1,37 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Navigate, useNavigate } from "react-router-dom";
 import api from "../../api";
-import axios from "axios";
-import { useSelector } from "react-redux";
 import { Coffee, Snowflake, Star } from "lucide-react";
-import { jwtDecode } from "jwt-decode";
 
 function ProductDetail() {
   const { id } = useParams();
-  const { token } = useSelector((state) => state.auth);
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
-
-  // Redirect if no token or expired
-  useEffect(() => {
-    if (!token) {
-      navigate("/login");
-      return;
-    }
-    try {
-      const decoded = jwtDecode(token);
-      if (decoded.exp * 1000 < Date.now()) {
-        localStorage.removeItem("auth");
-        navigate("/login");
-        return;
-      }
-    } catch {
-      localStorage.removeItem("auth");
-      navigate("/login");
-      return;
-    }
-  }, [token, navigate]);
 
   useEffect(() => {
     setLoading(true);
