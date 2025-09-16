@@ -55,6 +55,9 @@ function Navbar() {
             <NavLink to="/coffees" className={({ isActive }) => navLinkStyle(isActive)}>
               Shop
             </NavLink>
+            <NavLink to="/customer/orders" className={({ isActive }) => navLinkStyle(isActive)}>
+              My Orders
+            </NavLink>
           </>
         ) : (
           <>
@@ -111,9 +114,6 @@ function Navbar() {
                 <div className="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg z-50">
                   <NavLink to="/customer/profile" className={dropdownItemStyle}>
                     My Profile
-                  </NavLink>
-                  <NavLink to="/customer/orders" className={dropdownItemStyle}>
-                    My Orders
                   </NavLink>
                   <NavLink to="/customer/settings" className={dropdownItemStyle}>
                     Settings

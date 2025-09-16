@@ -6,11 +6,13 @@ import {
   increaseQuantity,
   decreaseQuantity,
 } from "../../features/cart/cartSlice";
+import { useNavigate } from "react-router-dom";
 import { Plus, Minus, Trash2 } from "lucide-react";
 
 const Cart = () => {
   const dispatch = useDispatch();
   const { items, status, error } = useSelector((state) => state.cart);
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetchCart());
@@ -114,7 +116,10 @@ const Cart = () => {
           {/* Total and Checkout */}
           <div className="text-right mt-6">
             <h3 className="text-xl font-bold">Total: {totalPrice} LKR</h3>
-            <button className="mt-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+            <button 
+              onClick={() => navigate("/customer/checkout")}
+              className="mt-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+            >
               Proceed to Checkout
             </button>
           </div>

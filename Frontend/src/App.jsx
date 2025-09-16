@@ -11,10 +11,12 @@ import Dashboard from "./pages/customer/Dashboard";
 import ProductDetail from "./pages/customer/Products";
 import PrivateRoute from "./utils/PrivateRoutes";
 import Cart from "./pages/customer/Cart.jsx";
+import Checkout from "./pages/customer/Checkout.jsx";
+import Orders from "./pages/customer/Orders.jsx";
 
 function App() {
   const location = useLocation();
-  // normalize path check: hide navbar on login & signup
+  // hide navbar on login & signup
   const hideNavbarFooter = location.pathname === "/login" || location.pathname === "/signUp";
 
   return (
@@ -51,6 +53,22 @@ function App() {
           element={
             <PrivateRoute roles={["customer"]}>
               <Cart />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/customer/checkout"
+          element={
+            <PrivateRoute roles={["customer"]}>
+              <Checkout />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/customer/orders"
+          element={
+            <PrivateRoute roles={["customer"]}>
+              <Orders />
             </PrivateRoute>
           }
         />
