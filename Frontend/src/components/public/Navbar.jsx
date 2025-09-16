@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../features/auth/authSlice";
 import logo from "/logo.png";
 import { User } from "lucide-react";
+import { fetchCart } from "../../features/cart/cartSlice";
 import CartIcon from "./CartIcon";
 
 function Navbar() {
@@ -14,7 +15,14 @@ function Navbar() {
   const userName = user?.userName;  
   const { items } = useSelector((state) => state.cart);
   const [showDropdown, setShowDropdown] = useState(false);
+  
+  useEffect(() => {
+    if (token) {
+      dispatch(fetchCart());
+    }
+  }, [token, dispatch]);
 
+  
   const handleLogout = () => {
     dispatch(logout());
     navigate("/login");

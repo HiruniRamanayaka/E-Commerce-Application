@@ -1,6 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCart, removeFromCart } from "../../features/cart/cartSlice";
+import {
+  fetchCart,
+  removeFromCart,
+  increaseQuantity,
+  decreaseQuantity,
+} from "../../features/cart/cartSlice";
+import { Plus, Minus, Trash2 } from "lucide-react";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -33,8 +39,9 @@ const Cart = () => {
           {items.map((item, i) => (
             <div
               key={item.product._id + (item.selectedSize?.size || "") + i}
-              className="flex items-center justify-between border-b pb-2"
+              className="flex items-center justify-between border-b pb-4"
             >
+              {/* Left: Product Info */}
               <div className="flex items-center gap-4">
                 <img
                   src={item.product.image}
@@ -45,7 +52,10 @@ const Cart = () => {
                   <h3 className="font-semibold">{item.product.name}</h3>
                   {item.selectedSize?.size && (
                     <p className="text-sm text-gray-600">
-                      Size: <span className="font-medium">{item.selectedSize.size}</span>
+                      Size:{" "}
+                      <span className="font-medium">
+                        {item.selectedSize.size}
+                      </span>
                     </p>
                   )}
                   <p>
@@ -54,16 +64,55 @@ const Cart = () => {
                   </p>
                 </div>
               </div>
-              <button
-                onClick={() => handleRemove(item.product._id)}
-                className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
-              >
-                Remove
-              </button>
+
+              {/* Right: Controls */}
+              <div className="flex items-center gap-3">
+                {/* Quantity Controls */}
+                <button
+                  onClick={() =>
+                    dispatch(decreaseQuantity({
+                      productId: item.product._id,
+                      selectedSize: item.selectedSize
+                      }))
+                    }
+                    disabled={item.quantity <= 1}
+                    className={`p-2 rounded ${
+                      item.quantity <= 1
+                        ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                        : "bg-gray-200 hover:bg-gray-300"
+                    }`}
+                  >
+                    <Minus className="w-4 h-4" />
+                  </button>
+                  
+                  <span className="px-2 font-medium">{item.quantity}</span>
+                  
+                  <button
+                    onClick={() =>
+                      dispatch(increaseQuantity({
+                        productId: item.product._id,
+                        selectedSize: item.selectedSize
+                      }))
+                    }
+                    className="p-2 bg-gray-200 rounded hover:bg-gray-300"
+                  >
+                    <Plus className="w-4 h-4" />
+                  </button>
+
+                  {/* Right: Remove Button */}
+                  <button
+                    onClick={() => handleRemove(item.product._id)}
+                    className="p-2 bg-red-500 text-white rounded hover:bg-red-600"
+                    title="Remove from cart"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+              </div>
             </div>
           ))}
 
-          <div className="text-right mt-4">
+          {/* Total and Checkout */}
+          <div className="text-right mt-6">
             <h3 className="text-xl font-bold">Total: {totalPrice} LKR</h3>
             <button className="mt-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
               Proceed to Checkout

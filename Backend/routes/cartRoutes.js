@@ -6,6 +6,46 @@ const { authorizeRoles } = require("../middleware/authorizeRoles");
 
 const router = express.Router();
 
+router.post("/increase", verifyToken, authorizeRoles("customer"), async (req, res) => {
+  const { productId, selectedSize } = req.body;
+
+  const cart = await Cart.findOne({ user: req.user.userId });
+  if (!cart) return res.status(404).json({ error: "Cart not found" });
+
+  const item = cart.items.find(
+    i => i.product.toString() === productId &&
+         i.selectedSize?.size === selectedSize?.size
+  );
+
+  if (item) {
+    item.quantity += 1;
+    await cart.save();
+  }
+  const updatedCart = await Cart.findById(cart._id).populate("items.product", "name price image");
+  res.status(200).json(updatedCart);
+});
+
+router.post("/decrease", verifyToken, authorizeRoles("customer"), async (req, res) => {
+  const { productId, selectedSize } = req.body;
+
+  const cart = await Cart.findOne({ user: req.user.userId });
+  if (!cart) return res.status(404).json({ error: "Cart not found" });
+
+  const item = cart.items.find(
+    i => i.product.toString() === productId &&
+         i.selectedSize?.size === selectedSize?.size
+  );
+
+  if (item && item.quantity > 1) {
+    item.quantity -= 1;
+    await cart.save();
+  }
+
+  const updatedCart = await Cart.findById(cart._id).populate("items.product", "name price image");
+  res.status(200).json(updatedCart);
+});
+
+
 // Get user cart
 router.get("/", verifyToken, authorizeRoles("customer"), async (req, res) => {
   try {

@@ -26,6 +26,23 @@ export const removeFromCart = createAsyncThunk(
   }
 );
 
+export const increaseQuantity = createAsyncThunk(
+  "cart/increaseQuantity",
+  async ({ productId, selectedSize }) => {
+    const res = await api.post("/cart/increase", { productId, selectedSize });
+    // console.log("Dispatching increaseQuantity:", productId, selectedSize);
+    return res.data;
+  }
+);
+
+export const decreaseQuantity = createAsyncThunk(
+  "cart/decreaseQuantity",
+  async ({ productId, selectedSize }) => {
+    const res = await api.post("/cart/decrease", { productId, selectedSize });
+    return res.data;
+  }
+);
+
 const cartSlice = createSlice({
   name: "cart",
   initialState: { items: [], status: "idle", error: null },
@@ -49,8 +66,14 @@ const cartSlice = createSlice({
       })
       .addCase(removeFromCart.fulfilled, (state, action) => {
         state.items = action.payload.items || [];
+      })
+      .addCase(increaseQuantity.fulfilled, (state, action) => {
+        state.items = action.payload.items || [];
+      })
+      .addCase(decreaseQuantity.fulfilled, (state, action) => {
+        state.items = action.payload.items || [];
+      })
+        },
       });
-  },
-});
 
 export default cartSlice.reducer;
