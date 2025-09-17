@@ -19,6 +19,7 @@ const registerUser = async ({ userName, email, password, countryCode, phone }) =
         email: user.email,
         phone: user.phone, 
         role: user.role,
+        createdAt: user.createdAt,
     };
 };
 
@@ -57,6 +58,7 @@ const loginUser = async ({ email, password }) => {
             email: existingUser.email,
             phone: existingUser.phone,
             role: existingUser.role,
+            createdAt: existingUser.createdAt,
         }
     };
 };
