@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { Coffee, Truck, Star } from "lucide-react";
 import HighlightedMenu from "../../components/public/HighlightedMenu";
 import hero_coffee from "../../assets/hero-coffee1.jpg";
+import coffeeTexture from "../../assets/coffee-texture.jpg";
 
 function Dashboard() {
   const { user } = useSelector((state) => state.auth);
@@ -86,7 +87,14 @@ function Dashboard() {
 
       {/* Call to Action */}
       <div className="relative bg-gradient-to-r from-yellow-500 via-orange-400 to-yellow-600 py-16 px-6 overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/images/coffee-texture.png')] opacity-10 mix-blend-overlay"></div>
+        <div
+          className="absolute inset-0 opacity-20 mix-blend-overlay"
+          style={{
+            backgroundImage: `url(${coffeeTexture})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        ></div>
 
         <div className="max-w-3xl mx-auto bg-white/10 backdrop-blur-md rounded-3xl p-10 text-center shadow-lg border border-white/20">
           <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-6 tracking-tight">

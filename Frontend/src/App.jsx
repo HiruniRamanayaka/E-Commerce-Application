@@ -13,6 +13,7 @@ import PrivateRoute from "./utils/PrivateRoutes";
 import Cart from "./pages/customer/Cart.jsx";
 import Checkout from "./pages/customer/Checkout.jsx";
 import Orders from "./pages/customer/Orders.jsx";
+import Profile from "./pages/customer/Profile.jsx";
 
 function App() {
   const location = useLocation();
@@ -69,6 +70,14 @@ function App() {
           element={
             <PrivateRoute roles={["customer"]}>
               <Orders />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/customer/profile"
+          element={
+            <PrivateRoute roles={["customer"]}>
+              <Profile />
             </PrivateRoute>
           }
         />

@@ -6,6 +6,7 @@ import logo from "/logo.png";
 import { User } from "lucide-react";
 import { fetchCart } from "../../features/cart/cartSlice";
 import CartIcon from "./CartIcon";
+import { toast } from "react-toastify";
 
 function Navbar() {
   const dispatch = useDispatch();
@@ -24,7 +25,9 @@ function Navbar() {
 
   
   const handleLogout = () => {
+    setShowDropdown(false);
     dispatch(logout());
+    toast.success("You’ve been logged out");
     navigate("/login");
   };
 
@@ -115,9 +118,9 @@ function Navbar() {
                   <NavLink to="/customer/profile" className={dropdownItemStyle}>
                     My Profile
                   </NavLink>
-                  <NavLink to="/customer/settings" className={dropdownItemStyle}>
+                  {/* <NavLink to="/customer/settings" className={dropdownItemStyle}>
                     Settings
-                  </NavLink>
+                  </NavLink> */}
                   <button onClick={handleLogout} className={dropdownItemStyle}>
                     Logout
                   </button>
