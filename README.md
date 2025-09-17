@@ -91,11 +91,13 @@ npm install
 ```
 
 ### Create a .env file in /backend:
+```bash
 MONGO_URI=<your-mongodb-uri>
 JWT_SECRET=<your-jwt-secret>
 RESEND_API_KEY=<your-resend-api-key>
 EMAIL_FROM=<your-email-address>
 PORT=5000
+```bash
 
 ## Seed the database (optional, to add sample products and employees):
 ```bash
@@ -120,7 +122,7 @@ npm run dev
 
 ## 🔑 Resend Email API Setup
 
-- Go to Resend[https://resend.com/] and create an account.
+- Go to [Resend](https://resend.com/) and create an account.
 - Once logged in, navigate to API Keys in your dashboard.
 - Click Create API Key and copy the key.
 - Add this key to your .env file:
