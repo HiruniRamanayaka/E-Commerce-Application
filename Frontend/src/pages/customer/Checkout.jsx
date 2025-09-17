@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { placeOrder } from "../../features/order/orderSlice";
 import { useNavigate } from "react-router-dom";
 import { clearCart } from "../../features/cart/cartSlice";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Checkout = () => {
   const dispatch = useDispatch();
@@ -17,13 +19,20 @@ const Checkout = () => {
     e.preventDefault();
     dispatch(placeOrder({ phoneNumber, pickupTime, paymentMethod }))
       .then(() => {
-      dispatch(clearCart()); 
-      navigate("/customer/orders");
-    });
+        toast.success("Order placed successfully!");
+        setTimeout(() => {
+          dispatch(clearCart());
+          navigate("/customer/orders");
+        }, 1500);
+      })
+      .catch(() => {
+        toast.error("Failed to place order. Please try again.");
+      });
   };
 
   return (
     <div className="max-w-xl mx-auto p-6">
+      <ToastContainer position="top-center" autoClose={1500} hideProgressBar={false} />
       <h2 className="text-2xl font-bold mb-4">Confirm Your Order</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
