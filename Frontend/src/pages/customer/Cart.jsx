@@ -8,6 +8,7 @@ import {
 } from "../../features/cart/cartSlice";
 import { useNavigate } from "react-router-dom";
 import { Plus, Minus, Trash2 } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -29,13 +30,23 @@ const Cart = () => {
 
   return (
     <div className="p-6 max-w-3xl mx-auto">
-      <h2 className="text-2xl font-bold mb-4">🛒 Your Cart</h2>
+      <h2 className="text-3xl text-[#3e2c1d] font-bold mb-4">🛒 Your Cart</h2>
 
       {status === "loading" && <p>Loading cart...</p>}
       {error && <p className="text-red-500">{error}</p>}
 
       {items.length === 0 ? (
-        <p>Your cart is empty.</p>
+        <div className="flex flex-col items-center justify-center text-center py-20 text-gray-600">
+          <ShoppingCart className="w-12 h-12 mb-4 text-amber-600" />
+          <h3 className="text-xl font-semibold mb-2">Your cart is empty</h3>
+          <p className="mb-4">Browse our coffees and add your favorites to the cart.</p>
+          <button
+            onClick={() => navigate("/coffees")}
+            className="bg-amber-600 text-white px-4 py-2 rounded hover:bg-amber-700 transition"
+          >
+            Explore Coffees
+          </button>
+        </div>
       ) : (
         <div className="space-y-4">
           {items.map((item, i) => (
