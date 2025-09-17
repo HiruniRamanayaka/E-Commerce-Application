@@ -90,14 +90,14 @@ cd backend
 npm install
 ```
 
-- Create a .env file in /backend:
+### Create a .env file in /backend:
 MONGO_URI=<your-mongodb-uri>
 JWT_SECRET=<your-jwt-secret>
 RESEND_API_KEY=<your-resend-api-key>
 EMAIL_FROM=<your-email-address>
 PORT=5000
 
-- Seed the database (optional, to add sample products and employees):
+## Seed the database (optional, to add sample products and employees):
 ```bash
     node seed.js
 ```
