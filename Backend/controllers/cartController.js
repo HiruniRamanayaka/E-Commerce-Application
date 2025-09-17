@@ -88,11 +88,16 @@ exports.addToCart = async (req, res) => {
 // Remove product from cart
 exports.removeFromCart = async (req, res) => {
   try {
+    const { productId, size } = req.params;
     const cart = await Cart.findOne({ user: req.user.userId });
     if (!cart) return res.status(404).json({ error: "Cart not found" });
 
     cart.items = cart.items.filter(
-      (item) => item.product.toString() !== req.params.productId
+      (item) => {
+        const matchProduct = item.product.toString() === productId;
+        const matchSize = item.selectedSize?.size === size;
+        return !(matchProduct && matchSize); // remove only if both match
+      }
     );
     await cart.save();
 

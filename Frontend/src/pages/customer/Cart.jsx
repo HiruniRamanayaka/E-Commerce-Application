@@ -19,8 +19,9 @@ const Cart = () => {
     dispatch(fetchCart());
   }, [dispatch]);
 
-  const handleRemove = (productId) => {
-    dispatch(removeFromCart(productId));
+  const handleRemove = (productId, size) => {
+    console.log("Removing:", productId, size);
+    dispatch(removeFromCart({ productId, size }));
   };
 
   const totalPrice = items.reduce((sum, item) => {
@@ -114,7 +115,7 @@ const Cart = () => {
 
                   {/* Right: Remove Button */}
                   <button
-                    onClick={() => handleRemove(item.product._id)}
+                    onClick={() => handleRemove(item.product._id, item.selectedSize?.size)}
                     className="p-2 bg-red-500 text-white rounded hover:bg-red-600"
                     title="Remove from cart"
                   >

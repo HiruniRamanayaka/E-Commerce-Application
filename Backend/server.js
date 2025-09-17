@@ -9,6 +9,7 @@ const employeeRoutes = require('./routes/employeeRoutes');
 const authRoutes = require('./routes/auth')
 const cartRoutes = require("./routes/cartRoutes");
 const orderRoutes = require("./routes/orderRoutes");
+const { errorHandler } = require('./middleware/errorMiddleware');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -31,6 +32,7 @@ app.use('/api/employees', employeeRoutes);
 app.use('/api/auth', authRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/orders", orderRoutes);
+app.use(errorHandler);
 
 // Start server
 app.listen(PORT, () => {

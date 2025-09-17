@@ -55,6 +55,7 @@ function Login() {
 
       const { token, user } = res.data;
 
+      localStorage.setItem("auth", JSON.stringify({ token, user }));
       // Save to Redux
       dispatch(loginSuccess({
         token,

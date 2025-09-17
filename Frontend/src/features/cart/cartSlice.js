@@ -20,8 +20,8 @@ export const addToCart = createAsyncThunk(
 
 export const removeFromCart = createAsyncThunk(
   "cart/removeFromCart",
-  async (productId) => {
-    const res = await api.delete(`/cart/remove/${productId}`);
+  async ({productId, size}) => {
+    const res = await api.delete(`/cart/remove/${productId}/${size}`);
     return res.data;
   }
 );

@@ -21,7 +21,7 @@ router.get("/", verifyToken, authorizeRoles("customer"), getCart);
 router.post("/add", verifyToken, authorizeRoles("customer"), addToCart);
 
 // Remove product from cart
-router.delete("/remove/:productId", verifyToken, authorizeRoles("customer"), removeFromCart);
+router.delete("/remove/:productId/:size", verifyToken, authorizeRoles("customer"), removeFromCart);
 
 // Clear cart
 router.delete("/clear", verifyToken, authorizeRoles("customer"), clearCart);
