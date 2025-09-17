@@ -133,7 +133,7 @@ npm run dev
 - EMAIL_FROM → The email address that will appear as the sender (can be your verified email in Resend).
 
 ### High level Architecture
-image
+[image](https://res.cloudinary.com/dgjs19uyt/image/upload/v1758131444/High-Level_Architectural_Diagram_ctthcp.jpg)
 
 #### 👩‍💻 Author
 R.K.H.K.Ramanayaka
