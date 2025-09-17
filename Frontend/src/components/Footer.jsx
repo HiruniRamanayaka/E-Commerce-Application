@@ -48,35 +48,35 @@ function Footer() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
                 {/* Home Links */}
                 <div >
-                    <h3 className="text-lg font-semibold mb-4 uppercase tracking-wide">Home</h3>
+                    <h3 className="text-lg font-semibold mb-4 uppercase tracking-wide"><Link to="/" className="hover:underline">Home</Link></h3>
                     <ul className="space-y-2">
-                    <li><Link to="/" className="hover:underline">Home</Link></li>
-                    <li><Link to="/about" className="hover:underline">About Us</Link></li>
-                    <li><Link to="/menu" className="hover:underline">Menu</Link></li>
-                    <li><Link to="/events" className="hover:underline">Events</Link></li>
-                    <li><Link to="/contact" className="hover:underline">Contact Us</Link></li>
+                    <li>Home</li>
+                    <li>About Us</li>
+                    <li>Menu</li>
+                    <li>Events</li>
+                    <li>Contact Us</li>
                     </ul>
                 </div>
 
                 {/* About Us Links */}
                 <div>
-                    <h3 className="text-lg font-semibold mb-4 uppercase tracking-wide">About Us</h3>
+                    <h3 className="text-lg font-semibold mb-4 uppercase tracking-wide"><Link to="/about" className="hover:underline">About Us</Link></h3>
                     <ul className="space-y-2">
-                    <li><Link to="/ourstory" className="hover:underline">Our Story</Link></li>
-                    <li><Link to="/values" className="hover:underline">List Menu</Link></li>
-                    <li><Link to="/teams" className="hover:underline">News</Link></li>
-                    <li><Link to="/suppliers" className="hover:underline">Team</Link></li>
-                    <li><Link to="/community" className="hover:underline">Blog</Link></li>
+                    <li>Our Story</li>
+                    <li>List Menu</li>
+                    <li>News</li>
+                    <li>Team</li>
+                    <li>Blog</li>
                     </ul>
                 </div>
 
                 {/* Coffee Links */}
                 <div>
-                    <h3 className="text-lg font-semibold mb-4 uppercase tracking-wide">Coffee</h3>
+                    <h3 className="text-lg font-semibold mb-4 uppercase tracking-wide"><Link to="/coffees" className="hover:underline">Coffee</Link></h3>
                     <ul className="space-y-2">
-                    <li><Link to="/ourstory" className="hover:underline">Coffee</Link></li>
-                    <li><Link to="/values" className="hover:underline">List Menu</Link></li>
-                    <li><Link to="/teams" className="hover:underline">Order</Link></li>
+                    <li>Coffee</li>
+                    <li>List Menu</li>
+                    <li>Order</li>
                     </ul>
                 </div>
             </div>

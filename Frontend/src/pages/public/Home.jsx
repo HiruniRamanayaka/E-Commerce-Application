@@ -1,9 +1,12 @@
 import React from "react";
 import heroImage from "../../assets/image1.jpg"
 import mainImage from "../../assets/image2.jpg"
-import HighlightedMenu from "../../components/public/HighlightedMenu";
+import HighlightedMenu from "../../components/HighlightedMenu";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
+    const navigate = useNavigate();
+
     return (
         <>
         <section className="bg-gradient-to-br from-amber-50 to-orange-100 text-[#3e2c1d] px-6 py-12 md:py-10 lg:px-24 font-sans">
@@ -17,10 +20,13 @@ function Home() {
                         Boost your productivity and build your mood with a glass of coffee in the morning, 100% natural from garden.
                     </p>    
                     <div className="flex items-center gap-4 mb-6">
-                        <button className="bg-yellow-600 text-white px-6 py-3 rounded-full hover:bg-yellow-700 transition">
-                        Order Now →
+                        <button 
+                            className="bg-yellow-600 text-white px-6 py-3 rounded-full hover:bg-yellow-700 transition"
+                            onClick={() => navigate("/login")}
+                        >
+                            Order Now →
                         </button>
-                        <span className="text-sm text-[#7a5e47]">Start At LKR 300</span>
+                        <span className="text-sm text-[#7a5e47]">Start At LKR 200</span>
                     </div>
                     <div className="flex gap-8 text-sm font-medium text-[#7a5e47]">
                         <div><span className="md:text-4xl">1K+</span> <br/> Reviews</div>
@@ -64,8 +70,11 @@ function Home() {
                         Start your day with the perfect cup. <br/> Crafted with care, our coffee delivers rich flavor and comfort in every sip. Whether you're rushing to work or relaxing at home, we've got your brew.
                     </p>
                     </div>
-                    <button className="bg-gray-900 text-white px-8 py-4 rounded-full font-semibold hover:bg-gray-800 transition-colors duration-300 transform hover:scale-105 shadow-lg">
-                    ORDER NOW
+                    <button 
+                        className="bg-gray-900 text-white px-8 py-4 rounded-full font-semibold hover:bg-gray-800 transition-colors duration-300 transform hover:scale-105 shadow-lg"
+                        onClick={() => navigate("/login")}
+                    >
+                        ORDER NOW
                     </button>
                 </div>
             </div>

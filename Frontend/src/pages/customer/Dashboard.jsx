@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Coffee, Truck, Star } from "lucide-react";
-import HighlightedMenu from "../../components/public/HighlightedMenu";
+import HighlightedMenu from "../../components/HighlightedMenu";
 import hero_coffee from "../../assets/hero-coffee1.jpg";
 import coffeeTexture from "../../assets/coffee-texture.jpg";
 

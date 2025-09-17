@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
-import axios from "axios";
-import api from "../../api";
+import api from "../api";
 import { ChevronRight } from 'lucide-react';
 import { useDispatch } from "react-redux";
-import { addToCart } from "../../features/cart/cartSlice";
+import { addToCart } from "../features/cart/cartSlice";
 
 function HighlightedMenu() {
     const [menuItems, setMenuItems] = useState([]);
