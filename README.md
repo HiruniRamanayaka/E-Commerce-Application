@@ -53,6 +53,7 @@ It also includes **authentication (login/signup)** and **Redux state management*
 ---
 
 ## 📂 Project Structure
+```bash
 /frontend
 ├── src
 │ ├── app (store.js)
@@ -75,6 +76,7 @@ It also includes **authentication (login/signup)** and **Redux state management*
 ├── .env
 ├── seeds.js 
 └── server.js
+```
 
 ## ⚙️ Setup Instructions
 
@@ -97,7 +99,7 @@ JWT_SECRET=<your-jwt-secret>
 RESEND_API_KEY=<your-resend-api-key>
 EMAIL_FROM=<your-email-address>
 PORT=5000
-```bash
+```
 
 ## Seed the database (optional, to add sample products and employees):
 ```bash
@@ -132,9 +134,9 @@ npm run dev
 - RESEND_API_KEY → The key you copied from Resend.
 - EMAIL_FROM → The email address that will appear as the sender (can be your verified email in Resend).
 
-### High level Architecture
-[image](https://res.cloudinary.com/dgjs19uyt/image/upload/v1758131444/High-Level_Architectural_Diagram_ctthcp.jpg)
+## High level Architecture
+![High level architecture](https://res.cloudinary.com/dgjs19uyt/image/upload/v1758131444/High-Level_Architectural_Diagram_ctthcp.jpg)
 
-#### 👩‍💻 Author
-R.K.H.K.Ramanayaka
-(SE/2021/024)
+## 👩‍💻 Author
+**Name**: R.K.H.K. Ramanayaka  
+**Student ID**: SE/2021/024  
