@@ -128,14 +128,15 @@ npm run dev
 - Once logged in, navigate to API Keys in your dashboard.
 - Click Create API Key and copy the key.
 - Add this key to your .env file:
+```bash
     RESEND_API_KEY=<your-resend-api-key>
     EMAIL_FROM=<your-email-address>
-
+```
 - RESEND_API_KEY → The key you copied from Resend.
 - EMAIL_FROM → The email address that will appear as the sender (can be your verified email in Resend).
 
 ## High level Architecture
-![High level architecture](https://res.cloudinary.com/dgjs19uyt/image/upload/v1758131444/High-Level_Architectural_Diagram_ctthcp.jpg)
+[High level architecture](https://res.cloudinary.com/dgjs19uyt/image/upload/v1758131444/High-Level_Architectural_Diagram_ctthcp.jpg)
 
 ## 👩‍💻 Author
 **Name**: R.K.H.K. Ramanayaka  
