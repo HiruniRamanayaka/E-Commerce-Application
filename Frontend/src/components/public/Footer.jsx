@@ -1,8 +1,11 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import { useSelector } from "react-redux";
 import { FaInstagram, FaFacebook, FaTwitter } from 'react-icons/fa';
 
 function Footer() {
+  const { token } = useSelector((state) => state.auth);
+
   return (
     <footer className="bg-[#2f2721] text-[#f5f5f5] py-10 mt-10">
       <div className="max-w-8xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -41,6 +44,7 @@ function Footer() {
 
         {/* Navigation */}
         <section className="px-5">
+          {!token && (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
                 {/* Home Links */}
                 <div >
@@ -76,6 +80,19 @@ function Footer() {
                     </ul>
                 </div>
             </div>
+          )} 
+
+          {token && (
+            <div>
+              <h3 className="text-lg font-semibold mb-4 uppercase tracking-wide">Quick Access</h3>
+              <ul className="space-y-2">
+                <li><Link to="/customer/dashboard" className="hover:underline">Dashboard</Link></li>
+                <li><Link to="/coffees" className="hover:underline">Shop</Link></li>
+                <li><Link to="/customer/orders" className="hover:underline">My Orders</Link></li>
+                <li><Link to="/customer/profile" className="hover:underline">Profile</Link></li>
+              </ul>
+            </div>
+          )}
         </section>
       </div>
 
