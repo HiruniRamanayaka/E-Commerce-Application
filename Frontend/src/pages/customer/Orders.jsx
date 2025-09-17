@@ -53,9 +53,10 @@ const Orders = () => {
                   {new Date(order.createdAt).toLocaleDateString()}
                 </td>
                 <td className="border px-4 py-2">
-                  {order.items.map((item) => (
-                    <div key={item.product._id}>
+                  {order.items.map((item, idx) => (
+                    <div key={idx}>
                       {item.quantity} × {item.product.name}
+                      {item.selectedSize?.size && ` (${item.selectedSize.size})`}
                     </div>
                   ))}
                 </td>
@@ -63,7 +64,25 @@ const Orders = () => {
                   {order.pickupTime || "—"}
                 </td>
                 <td className="border px-4 py-2">LKR {" "} {order.totalPrice}</td>
-                <td className="border px-4 py-2 capitalize">{order.status}</td>
+                <td className="border px-4 py-2">
+                  <span
+                    className={`px-2 py-1 rounded capitalize font-medium ${
+                      order.status === "pending"
+                        ? "text-yellow-500"
+                        : order.status === "paid"
+                        ? "text-blue-500"
+                        : order.status === "completed"
+                        ? "text-green-500"
+                        : order.status === "ready"
+                        ? "text-purple-500"
+                        : order.status === "cancelled"
+                        ? "text-gray-600"
+                        : "text-red-500"
+                    }`}
+                  >
+                    {order.status}
+                  </span>
+                </td>
                 <td className="border px-4 py-2">
                   {["pending", "paid"].includes(order.status) ? (
                     <button

@@ -91,12 +91,8 @@ const AboutUs = () => {
           </div>
         </section>
 
-        {/* News Section */}
-
         {/* Team Section */}
         <Team />
-
-        {/* Blog Section */}
         
       </main>
     </div>
